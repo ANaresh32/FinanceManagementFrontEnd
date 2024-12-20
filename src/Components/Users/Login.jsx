@@ -69,23 +69,22 @@ const Home = () => {
       localStorage.setItem("sessionData", JSON.stringify(result.item));
       setLoggedIn(true); // Update logged-in state
       if (result.isSuccess === true) {
-        setLoggedIn(true); // Update logged-in state
+        setLoggedIn(true);
         setSessionData(result.item);
         debugger;
         if (result.item.employee.role.name === "US-Finance") {
           navigate("/USFinance/UsFinaceALlProjects");
         } else if (result.item.employee.role.name === "Admin") {
-          navigate("/dashboard/EmployeeDashboard");
+          navigate("/dashboard/AdminDashboard");
         } else if (result.item.employee.role.name === "Indian finace") {
           navigate("/EmployeeDashboard");
         } else if (result.item.employee.role.name === "Project Manager") {
-          navigate("/dashboard/UnderManagerEmployees");
+          navigate("/dashboard/ManagerDasboard");
         } else if (result.item.employee.role.name === "Reporting Manager") {
           navigate("/UnderManagerEmployees");
         } else if (result.item.employee.role.name === "Hr") {
           navigate("/EmployeeDashboard");
         }
-
         //navigate("/AdminDashboard"); // Navigate to dashboard or another page
       } else {
         // Handle specific error codes
@@ -250,7 +249,6 @@ const Home = () => {
       ...error,
       [name]: LoginFormValidation(name, value),
     });
-    console.log(valuess.password, "=========>values");
   };
   async function onSetNewPasswordClick(e) {
     e.preventDefault();

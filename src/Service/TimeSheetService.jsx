@@ -1,8 +1,6 @@
 import axios from "axios";
 const TimeSheetService = {
   async AddNewTimeSheet(obj, projectManagerid, isSubmited) {
-    console.log(obj);
-
     const response = await axios.post(
       `https://localhost:44305/api/Timesheets/AddtimeSheet?selectedDate=${obj.selectedDate}&projectId=${obj.projectId}&projectManager=${projectManagerid}&isSubmited=${isSubmited}`,
       obj.employeeData

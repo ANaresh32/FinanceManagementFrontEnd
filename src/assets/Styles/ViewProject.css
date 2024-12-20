@@ -270,3 +270,14 @@
   color: #464646; /* Sets the text color */
   opacity: 1;
 }
+
+.Progress_percentage {
+  text-align: left;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 600;
+  font-size: 12px;
+  font-family: "Segoe UI";
+  color: #000000;
+  opacity: 1;
+}

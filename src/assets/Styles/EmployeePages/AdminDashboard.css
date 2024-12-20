@@ -1,0 +1,159 @@
+.Employeeoverview {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 7px 18px #64646430;
+  border-radius: 10px;
+  opacity: 1;
+  height: 140px;
+}
+
+.employeeoveriew_content {
+  text-align: left;
+  font: normal normal bold 14px/24px Segoe UI;
+  letter-spacing: 0px;
+  color: #000000;
+  text-transform: uppercase;
+  opacity: 1;
+}
+.ActiveEmployeeContent {
+  text-align: left;
+  font: normal normal bold 12px/24px Segoe UI;
+  letter-spacing: 0px;
+  color: #989898;
+  opacity: 1;
+  margin: 0;
+}
+.total_employees_content {
+  text-align: left;
+  font: normal normal normal 12px/24px Segoe UI;
+  letter-spacing: 0px;
+  color: #989898;
+  opacity: 1;
+}
+.billble_content {
+  text-align: left;
+  font: normal normal normal 12px/24px Segoe UI;
+  letter-spacing: 0px;
+  color: #989898;
+  opacity: 1;
+}
+.bench_Employee-Progress {
+  text-align: left;
+  font: normal normal 600 22px/24px Segoe UI;
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+}
+.total_employee_content {
+  height: 35px;
+  /* UI Properties */
+  background: #83b8fd 0% 0% no-repeat padding-box;
+  border-radius: 4px;
+  opacity: 1;
+}
+.total_employee_content1 {
+  height: 35px;
+
+  background: #7277f6 0% 0% no-repeat padding-box;
+  border-radius: 4px;
+  opacity: 1;
+}
+.lastrowcontent {
+  text-align: left;
+  font: normal normal 600 14px/24px Segoe UI;
+  letter-spacing: 0px;
+  color: #ffffff;
+  opacity: 1;
+}
+.Quick_Actions_image {
+  padding: 10px 0px;
+}
+
+.Add_Employee_content {
+  text-align: left;
+  font: normal normal 600 12px/30px Segoe UI;
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+}
+.addEmployee_quick_action {
+  cursor: pointer;
+}
+.adminName {
+  /* text-align: left; */
+  font: normal normal bold 12px/24px Segoe UI;
+  letter-spacing: 0px;
+  color: #989898;
+  opacity: 1;
+  /* padding: 0px 50px; */
+}
+/* .latest_updatesImage {
+  width: 34px;
+  height: 34px;
+  background-color: #875fc0;
+  border-radius: 100px;
+  opacity: 1;
+} */
+
+.Project_Updated_Span {
+  text-align: left;
+  font: normal normal 600 12px/22px Segoe UI;
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+}
+
+.project_updated_name {
+  text-align: left;
+  font: normal normal normal 12px/18px Segoe UI;
+  letter-spacing: 0px;
+  color: #000000;
+}
+.updated_task_content {
+  text-align: left;
+  font: normal normal normal 12px/18px Segoe UI;
+  letter-spacing: 0px;
+  color: #bfbfbf;
+}
+.updated_time {
+  text-align: left;
+  font: normal normal normal 12px/18px Segoe UI;
+  letter-spacing: 0px;
+  color: #bfbfbf;
+  opacity: 1;
+}
+.ViewAll {
+  text-align: center;
+  font-style: normal; /* Style: normal, italic, oblique */
+  font-variant: normal; /* Variant: normal, small-caps */
+  font-weight: normal; /* Weight: normal, bold, etc. */
+  font-size: 14px; /* Font size */
+  line-height: 19px; /* Line height */
+  font-family: "Segoe UI";
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+}
+.viewAlldiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+/* .dropdown-menu {
+  animation: slideDown 0.3s ease-in-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===========
+ */

@@ -563,7 +563,7 @@ export default function AddEmployee() {
                       {...params}
                       placeholder="MM/DD/YYYY"
                       variant="outlined"
-                      type="date"
+                      // type="date"
                       fullWidth
                       sx={{
                         "& .MuiOutlinedInput-root": {
@@ -817,9 +817,9 @@ export default function AddEmployee() {
                 />
               </div>
             </div>
+            {/* <div className="col-3"></div>
             <div className="col-3"></div>
-            <div className="col-3"></div>
-            <div className="col-3"></div>
+            <div className="col-3"></div> */}
           </div>
 
           <div

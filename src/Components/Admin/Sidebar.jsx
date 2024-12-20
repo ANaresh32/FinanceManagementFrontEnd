@@ -63,6 +63,7 @@ const Sidebar = ({ children }) => {
     {
       name: "Dashboard",
       icon: dashboardsidebarimage,
+      path: "/dashboard/AdminDashboard",
     },
     {
       name: "HR Management",
@@ -93,7 +94,7 @@ const Sidebar = ({ children }) => {
     {
       name: "Logout",
       icon: Logout,
-      submenu: [{ path: "/Dashboard/AllProjects", name: "All Projects" }],
+      path: "/user/Login",
     },
   ];
 
@@ -101,7 +102,24 @@ const Sidebar = ({ children }) => {
     {
       name: "Dashboard",
       icon: dashboardsidebarimage,
-      submenu: [{ path: "/Dashboard/AllProjects", name: "- AddProjects" }],
+      path: "/Dashboard/ManagerDasboard",
+    },
+    {
+      name: "HR Management",
+      icon: hrManagement,
+      submenu: [{ path: "/dashboard/UnderEmployees", name: "Employees" }],
+    },
+    {
+      name: "Project Management",
+      icon: ProjectManagement,
+      submenu: [
+        { path: "/Dashboard/ProjectManagerProjects", name: "Projects" },
+      ],
+    },
+    {
+      name: "Billing",
+      icon: billing,
+      submenu: [{ path: "/Dashboard/TimeSheet", name: "TimeSheet" }],
     },
   ];
 

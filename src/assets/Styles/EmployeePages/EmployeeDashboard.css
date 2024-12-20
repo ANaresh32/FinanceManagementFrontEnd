@@ -295,3 +295,81 @@ input[type="txt"] {
   font-size: 12px;
   color: red;
 }
+.projectOverview_content {
+  text-align: left;
+  font: normal normal bold 14px/24px Segoe UI;
+  letter-spacing: 0px;
+  color: #000000;
+  text-transform: uppercase;
+  opacity: 1;
+  padding-top: 20px;
+}
+.Project_OverView {
+  padding-top: 30px;
+}
+.Project_progress {
+  /* width: 300px; */
+  height: 250px;
+  /* UI Properties */
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 7px 18px #64646430;
+  border-radius: 10px;
+  opacity: 1;
+}
+.Active_project_conetnt {
+  text-align: left;
+  font: normal normal bold 12px/24px Segoe UI;
+  letter-spacing: 0px;
+  color: #989898;
+  opacity: 1;
+}
+
+.activeEmployees {
+  text-align: center;
+  font: normal normal bold 12px/19px Segoe UI;
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+}
+.ActiveProject_Inprogress_notstated {
+  text-align: left;
+  font: normal normal normal 12px/24px Segoe UI;
+  letter-spacing: 0px;
+  color: #989898;
+  opacity: 1;
+}
+.Profit_And_Loss_Summary {
+  padding-top: 30px;
+}
+.Profit_and_loss_flowchat {
+  /* width: 650px; */
+  height: 425px;
+  /* UI Properties */
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 7px 18px #64646430;
+  border-radius: 10px;
+  opacity: 1;
+}
+.recentActivities {
+  height: 425px;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 7px 18px #64646430;
+  border-radius: 10px;
+  opacity: 1;
+}
+.Quick_Actions_div {
+  height: 133px;
+  /* UI Properties */
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 7px 18px #64646430;
+  border-radius: 10px;
+  opacity: 1;
+}
+.addEmployee_quick_action {
+  width: 160px;
+  height: 93px;
+  /* UI Properties */
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 1px solid #e0e6ed;
+  opacity: 1;
+}

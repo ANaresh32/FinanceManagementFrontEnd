@@ -19,6 +19,14 @@ const EmployeeService = {
 
     return response.data;
   },
+  async GetprojectEmployees(id, formattedDate) {
+    console.log(id, formattedDate, "in servvice");
+    const response = await axios.post(
+      `https://localhost:44305/api/Timesheets/GetProjectEmployee?projectID=${id}&date=${formattedDate}`
+    );
+
+    return response.data;
+  },
   async UpdateProfilefcn(obj) {
     const response = await axios.post(
       `https://localhost:44305/api/Employees/UpdateProfile`,

@@ -7,14 +7,17 @@ import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import images from "../../assets/Images/User.png";
 import axios from "axios";
-import EditEmployeePopup from "./EditEmployeePopup";
-import ImportPopup from "./ImportPopup";
+import EditEmployeePopup from "../Employee/EditEmployeePopup";
 import ellips from "../../assets/Images/Ellipse.png";
 import checkimage from "../../assets/Images/check.png";
-import EmployeeDetails from "./EmployeeDetails";
-import { useTheme } from "@emotion/react";
+import EmployeeDetails from "../Employee/EmployeeDetails";
+import ImportPopup from "../Employee/ImportPopup";
 import Dropdown from "react-bootstrap/Dropdown";
+import { getSessionData } from "../../Service/SharedSessionData";
 export default function Employees() {
+  const userDetails = JSON.parse(localStorage.getItem("sessionData"));
+  var id = userDetails.employee.id;
+  console.log(userDetails.employee.id, "============>user Login Deatisl");
   const navigate = useNavigate();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
@@ -25,10 +28,26 @@ export default function Employees() {
   const [open, setOpen] = useState(false);
   const [isDivVisible, setIsDivVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [sessionData, setSessionDataState] = useState(null);
 
+  //   useEffect(() => {
+  //     const subscription = getSessionData().subscribe({
+  //       next: (data) => {
+  //         setSessionDataState(data);
+  //         console.log(data, "Updated sessionData");
+  //       },
+  //       error: (err) => {
+  //         console.error("Error fetching session data: ", err);
+  //       },
+  //     });
+
+  //     return () => {
+  //       subscription.unsubscribe();
+  //     };
+  //   }, []);
   useEffect(() => {
     FetchData();
-  }, [selectedEmployeeIds, isDivVisible]);
+  }, [selectedEmployeeIds, isDivVisible, id]);
 
   const EdittogglePopup = (e, index, employeeid) => {
     sessionStorage.setItem("EmployeeID", employeeid);
@@ -40,11 +59,13 @@ export default function Employees() {
   };
   const FetchData = async () => {
     const response = await axios.get(
-      "https://localhost:44305/api/Employees/GetAllEmployees"
+      `https://localhost:44305/api/Employees/GetEmployeesByManager?id=${id}`
     );
     var result = response.data.item;
+    //console.log(result, "managaer Employees");
     setEmployees(result);
   };
+  console.log(employees, "=========>emplouyees");
 
   const handleOpenPopup = async (e, index, id) => {
     var response = await axios.put(
@@ -64,9 +85,7 @@ export default function Employees() {
     const isChecked = e.target.checked;
 
     if (isChecked && selectedEmployeeIds.length > 0) {
-      const allEmployeeIds = currentItems.map(
-        (employee) => employee.employeeDetails.id
-      );
+      const allEmployeeIds = currentItems.map((employee) => employee.id);
       setSelectedEmployeeIds(allEmployeeIds);
 
       setDisiblebuttons(false);
@@ -101,18 +120,10 @@ export default function Employees() {
 
   const filteredEmployees = employees.filter((employee) => {
     return (
-      employee.employeeDetails.firstName
-        .toLowerCase()
-        .includes(searchQuery.toLowerCase()) ||
-      employee.employeeDetails.lastName
-        .toLowerCase()
-        .includes(searchQuery.toLowerCase()) ||
-      employee.employeeDetails.email
-        .toLowerCase()
-        .includes(searchQuery.toLowerCase()) ||
-      employee.employeeDetails.employeeId
-        .toLowerCase()
-        .includes(searchQuery.toLowerCase())
+      employee.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      employee.lastName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      employee.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      employee.employeeId.toLowerCase().includes(searchQuery.toLowerCase())
     );
   });
 
@@ -164,12 +175,14 @@ export default function Employees() {
     try {
       if (isDivVisible == false) {
         response = await axios.get(
-          `https://localhost:44305/DownloadFile?listType=${listtype}&fileType=${filetype}&TypeOfEmployees=${"Active"}`,
+          //   `https://localhost:44305/DownloadFile?listType=${listtype}&fileType=${filetype}&TypeOfEmployees=${"Active"}`,
+          //   { responseType: "blob" }
+          `https://localhost:44305/DownloadProjectManagerEmployees?listType=${listtype}&fileType=${filetype}&TypeOfEmployees=${"Active"}&ManagerId=${id}`,
           { responseType: "blob" }
         );
       } else {
         response = await axios.get(
-          `https://localhost:44305/DownloadFile?listType=${listtype}&fileType=${filetype}&TypeOfEmployees=${"Inactive"}`,
+          `https://localhost:44305/DownloadProjectManagerEmployees?listType=${listtype}&fileType=${filetype}&TypeOfEmployees=${"Inactive"}&ManagerId=${id}`,
           { responseType: "blob" }
         );
       }
@@ -223,21 +236,13 @@ export default function Employees() {
               </p>
             </div>
           ) : (
-            <div
-              className="col-1"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <p className="employeecontent" style={{ fontSize: "9px" }}>
+            <div className="col-5">
+              <p className="employeecontent ms-3" style={{ fontSize: "12px" }}>
                 Employee list
               </p>
             </div>
           )}
           {isDivVisible && <div className="col-3"></div>}
-
           <div
             className="col-3"
             style={{
@@ -273,7 +278,6 @@ export default function Employees() {
               }}
             ></i>
           </div>
-
           <div
             className="col-2"
             style={{
@@ -313,18 +317,8 @@ export default function Employees() {
               </button>
             )}
           </div>
-          {!isDivVisible && (
-            <div className="col-1">
-              <button
-                style={{ fontSize: "12px", height: "30px" }}
-                className="btn btn-primary"
-                onClick={() => setIsPopupOpen(true)}
-              >
-                Import
-              </button>
-            </div>
-          )}
-          <div className="col-1" style={{ padding: "0px" }}>
+
+          <div className="col-1 " style={{ padding: "0px" }}>
             <Dropdown>
               <Dropdown.Toggle
                 // variant="success"
@@ -355,7 +349,7 @@ export default function Employees() {
               </Dropdown.Menu>
             </Dropdown>
           </div>
-          {!isDivVisible && (
+          {/* {!isDivVisible && (
             <div className="col-2 ">
               <button
                 className="btn btn-danger deleteSelected"
@@ -371,8 +365,8 @@ export default function Employees() {
                 Delete Selected
               </button>
             </div>
-          )}
-          {!isDivVisible && (
+          )} */}
+          {/* {!isDivVisible && (
             <div className="col-2">
               <button
                 style={{
@@ -407,7 +401,7 @@ export default function Employees() {
                 </span>
               </button>
             </div>
-          )}
+          )} */}
         </div>
 
         <div style={{ padding: "10px" }}>
@@ -419,11 +413,11 @@ export default function Employees() {
             <thead>
               <tr className="tableheader">
                 <th>
-                  <input
+                  {/* <input
                     type="checkbox"
                     onChange={handleSelectAll}
                     className="userCheckbox"
-                  />
+                  /> */}
                 </th>
                 <th style={{ fontSize: "12px" }}>Employee ID</th>
                 <th style={{ fontSize: "12px" }}>First Name</th>
@@ -438,17 +432,17 @@ export default function Employees() {
                 {isDivVisible && (
                   <th style={{ fontSize: "12px" }}>Date of Relieving</th>
                 )}
-                {!isDivVisible && <th></th>}
-                {!isDivVisible && <th></th>}
+                {/* {!isDivVisible && <th></th>}
+                {!isDivVisible && <th></th>} */}
               </tr>
             </thead>
             <tbody>
               {currentItems.length > 0 ? (
                 currentItems.map((employee, index) =>
                   !isDivVisible
-                    ? employee.employeeDetails.employeeStatus === 1 && (
+                    ? employee.employeeStatus === 1 && (
                         <tr
-                          key={employee.employeeDetails.id}
+                          key={employee.id}
                           className="tablebody"
                           style={{
                             backgroundColor: "white",
@@ -456,102 +450,83 @@ export default function Employees() {
                           }}
                         >
                           <td style={{ textAlign: "start" }}>
-                            <input
+                            {/* <input
                               type="checkbox"
                               className="row-checkbox "
                               onChange={(e) =>
                                 handleCheckboxChange(
-                                  employee.employeeDetails.id,
+                                  employee.id,
                                   e.target.checked
                                 )
                               }
-                            />
+                            /> */}
                           </td>
                           <td
                             style={{ fontSize: "12px" }}
-                            onClick={(e) =>
-                              ViewDetails(employee.employeeDetails.id)
-                            }
+                            onClick={(e) => ViewDetails(employee.id)}
                           >
-                            {employee.employeeDetails.employeeId}
+                            {employee.employeeId}
                           </td>
                           <td
                             style={{ fontSize: "12px" }}
-                            onClick={(e) =>
-                              ViewDetails(employee.employeeDetails.id)
-                            }
+                            onClick={(e) => ViewDetails(employee.id)}
                           >
-                            {employee.employeeDetails.firstName}
+                            {employee.firstName}
                           </td>
                           <td
                             style={{ fontSize: "12px" }}
-                            onClick={(e) =>
-                              ViewDetails(employee.employeeDetails.id)
-                            }
+                            onClick={(e) => ViewDetails(employee.id)}
                           >
-                            {employee.employeeDetails.lastName}
+                            {employee.lastName}
                           </td>
                           <td
                             style={{ fontSize: "12px" }}
-                            onClick={(e) =>
-                              ViewDetails(employee.employeeDetails.id)
-                            }
+                            onClick={(e) => ViewDetails(employee.id)}
                           >
-                            {employee.employeeDetails.email}
+                            {employee.email}
                           </td>
                           <td
                             style={{ fontSize: "12px" }}
-                            onClick={(e) =>
-                              ViewDetails(employee.employeeDetails.id)
-                            }
+                            onClick={(e) => ViewDetails(employee.id)}
                           >
-                            {employee.employeeDetails.mobileNo}
+                            {employee.mobileNo}
                           </td>
                           <td
                             style={{ fontSize: "12px" }}
-                            onClick={(e) =>
-                              ViewDetails(employee.employeeDetails.id)
-                            }
+                            onClick={(e) => ViewDetails(employee.id)}
                           >
                             {new Date(
-                              employee.employeeDetails.dateOfJoining
+                              employee.dateOfJoining
                             ).toLocaleDateString("en-GB")}
+                            {/* {new Date(
+                              employee.dateOfJoining
+                            ).toLocaleDateString("en-GB")} */}
                           </td>
                           <td
                             style={{ fontSize: "12px" }}
-                            onClick={(e) =>
-                              ViewDetails(employee.employeeDetails.id)
-                            }
+                            onClick={(e) => ViewDetails(employee.id)}
                           >
                             Active
                           </td>
                           <td
                             style={{ fontSize: "12px" }}
-                            onClick={(e) =>
-                              ViewDetails(employee.employeeDetails.id)
-                            }
+                            onClick={(e) => ViewDetails(employee.id)}
                           >
-                            {employee.roleDetails.roleName}
+                            {employee.role.name}
                           </td>
                           <td
                             style={{ fontSize: "12px" }}
-                            onClick={(e) =>
-                              ViewDetails(employee.employeeDetails.id)
-                            }
+                            onClick={(e) => ViewDetails(employee.id)}
                           >
-                            {employee.reportingManagerDetails !== "N/A"
-                              ? `${employee.reportingManagerDetails.firstName} ${employee.reportingManagerDetails.lastName}`
+                            {employee.projectManager !== "N/A"
+                              ? `${employee.projectManager.firstName} ${employee.projectManager.lastName}`
                               : "N/A"}
                           </td>
-                          <td>
+                          {/* <td>
                             <img
                               src={editicon}
                               onClick={(e) =>
-                                EdittogglePopup(
-                                  e,
-                                  index,
-                                  employee.employeeDetails.id
-                                )
+                                EdittogglePopup(e, index, employee.id)
                               }
                               alt=""
                               style={{
@@ -560,16 +535,12 @@ export default function Employees() {
                                 cursor: "pointer",
                               }}
                             />
-                          </td>
-                          <td>
+                          </td> */}
+                          {/* <td>
                             <img
                               src={deleteicon}
                               onClick={(e) =>
-                                handleOpenPopup(
-                                  e,
-                                  index,
-                                  employee.employeeDetails.id
-                                )
+                                handleOpenPopup(e, index, employee.id)
                               }
                               alt=""
                               style={{
@@ -578,12 +549,12 @@ export default function Employees() {
                                 cursor: "pointer",
                               }}
                             />
-                          </td>
+                          </td> */}
                         </tr>
                       )
-                    : employee.employeeDetails.employeeStatus === 0 && (
+                    : employee.employeeStatus === 0 && (
                         <tr
-                          key={employee.employeeDetails.id}
+                          key={employee.id}
                           className="tablebody"
                           style={{
                             backgroundColor: "white",
@@ -591,69 +562,61 @@ export default function Employees() {
                           }}
                         >
                           <td style={{ textAlign: "start" }}>
-                            <input
+                            {/* <input
                               type="checkbox"
                               className="row-checkbox "
                               onChange={(e) =>
                                 handleCheckboxChange(
-                                  employee.employeeDetails.id,
+                                  employee.id,
                                   e.target.checked
                                 )
                               }
-                            />
+                            /> */}
                           </td>
                           <td
                             style={{ fontSize: "12px ms-2" }}
-                            onClick={(e) =>
-                              ViewDetails(employee.employeeDetails.id)
-                            }
+                            onClick={(e) => ViewDetails(employee.id)}
                           >
-                            {employee.employeeDetails.employeeId}
+                            {employee.employeeId}
                           </td>
                           <td
                             style={{ fontSize: "12px" }}
-                            onClick={(e) =>
-                              ViewDetails(employee.employeeDetails.id)
-                            }
+                            onClick={(e) => ViewDetails(employee.id)}
                           >
-                            {employee.employeeDetails.firstName}
+                            {employee.firstName}
                           </td>
                           <td
                             style={{ fontSize: "12px" }}
-                            onClick={(e) =>
-                              ViewDetails(employee.employeeDetails.id)
-                            }
+                            onClick={(e) => ViewDetails(employee.id)}
                           >
-                            {employee.employeeDetails.lastName}
+                            {employee.lastName}
                           </td>
                           <td
                             style={{ fontSize: "12px" }}
-                            onClick={(e) =>
-                              ViewDetails(employee.employeeDetails.id)
-                            }
+                            onClick={(e) => ViewDetails(employee.id)}
                           >
-                            {employee.employeeDetails.email}
+                            {employee.email}
                           </td>
                           <td
                             style={{ fontSize: "12px" }}
-                            onClick={(e) =>
-                              ViewDetails(employee.employeeDetails.id)
-                            }
+                            onClick={(e) => ViewDetails(employee.id)}
                           >
-                            {employee.employeeDetails.mobileNo}
+                            {employee.mobileNo}
                           </td>
                           <td style={{ fontSize: "12px" }}>
                             {new Date(
-                              employee.employeeDetails.dateOfJoining
+                              employee.dateOfJoining
                             ).toLocaleDateString("en-GB")}
+                            {/* {new Date(
+                              employee.dateOfJoining
+                            ).toLocaleDateString("en-GB")} */}
                           </td>
-
                           <td style={{ fontSize: "12px" }}>
-                            {employee.roleDetails.roleName}
+                            {employee.role.name}
                           </td>
                           <td style={{ fontSize: "12px" }}>
-                            {employee.reportingManagerDetails !== "N/A"
-                              ? `${employee.reportingManagerDetails.firstName} ${employee.reportingManagerDetails.lastName}`
+                            {employee.projectManager !== "N/A"
+                              ? `${employee.projectManager.firstName} ${employee.projectManager.lastName}`
                               : "N/A"}
                           </td>
                           <td
@@ -661,7 +624,9 @@ export default function Employees() {
                               fontSize: "12px",
                             }}
                           >
-                            {employee.employeeDetails.dateOfReliving}
+                            {new Date(
+                              employee.dateOfReliving
+                            ).toLocaleDateString("en-GB")}
                           </td>
                         </tr>
                       )

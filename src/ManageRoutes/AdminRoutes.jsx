@@ -25,6 +25,11 @@ import AddEmployee from "../Components/Employee/AddEmployee";
 import Projectss from "../Components/Admin/Pages/Projects";
 import EditEmployeePopup from "../Components/Employee/EditEmployeePopup";
 import UpdateProject from "../Components/Admin/Pages/UpdateProject";
+import AdminDashboard from "../Components/Admin/AdminDashboard";
+import Employeess from "../Components/Manager/Employees";
+import ManagerDashboard from "../Components/Manager/ManagerDashboard";
+import ProjectManagerProjects from "../Components/Manager/ProjectManagerProjects";
+import TimeSheetModule from "../Components/Manager/TimeSheet";
 
 export default function AdminRoutes() {
   return (
@@ -33,7 +38,7 @@ export default function AdminRoutes() {
         <Route path="/" element={<EmployeeDashboard />} />
         <Route path="/about" element={<About />} />
         <Route path="/comment" element={<Comment />} />
-        <Route path="/AdminDashboard" element={<Dashboard />} />
+        <Route path="/AdminDashboard" element={<AdminDashboard />} />
         <Route path="/Dashboard/AllProjects" element={<AllProjects />} />
         <Route path="/AddProject" element={<AddProject />} />
         <Route path="/All/Projects" element={<Projectss />} />
@@ -43,10 +48,18 @@ export default function AdminRoutes() {
         <Route path="/EmployeeDashboard" element={<EmployeeDashboard />} />
         <Route path="/Roles" element={<Roles />} />
         <Route path="/EmployeeDetails" element={<EmployeeDetails />} />
+        <Route path="/UnderEmployees" element={<Employeess />} />
+
+        <Route
+          path="/ProjectManagerProjects"
+          element={<ProjectManagerProjects />}
+        />
+        <Route path="/ManagerDasboard" element={<ManagerDashboard />} />
         <Route path="/Employee/Projects" element={<Projects />} />
         <Route path="/Employee/ViewProject" element={<ViewMangerProject />} />
         <Route path="/EditEmployee" element={<EditEmployeePopup />} />
         <Route path="/UpdateProject" element={<UpdateProject />} />
+        <Route path="/TimeSheet" element={<TimeSheetModule />} />
 
         <Route path="/Employee/TimeSheet" element={<TimeSheet />} />
         <Route path="/Dashboard/Profile" element={<Profile />} />

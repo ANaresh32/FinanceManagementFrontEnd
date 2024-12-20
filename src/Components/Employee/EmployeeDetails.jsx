@@ -208,7 +208,7 @@ export default function EmployeeDetails() {
                   </div>
 
                   {isTooltipVisible && (
-                    <div className="tooltip-box">
+                    <div className="tooltip-box" style={{ marginLeft: "35px" }}>
                       <div className="tooltip-header">
                         <span style={{ fontSize: "12px", padding: "0px 7px" }}>
                           Skill Sets

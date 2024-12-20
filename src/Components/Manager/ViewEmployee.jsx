@@ -9,7 +9,6 @@ export default function ViewEmployee() {
   const [roleName, setRoleName] = useState("");
   const id = localStorage.getItem("empId");
   const navigate = useNavigate();
-  console.log(id, "000000000000000");
   useEffect(() => {
     FetchData();
   }, []);

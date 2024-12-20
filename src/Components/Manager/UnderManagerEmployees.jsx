@@ -13,7 +13,9 @@ export default function UnderManagerEmployees() {
   }, []);
   async function FetchData() {
     var id = userDetails.employee.id;
-    var response = await ManagerService.FcnUnderManagerEmployees(id);
+    var response = await ManagerService.FcnUn;
+
+    derManagerEmployees(id);
 
     setEmployees(response.item);
   }
